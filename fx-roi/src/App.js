@@ -4,55 +4,277 @@ import {
   Button,
   Layout,
   Row,
-  Col
+  Col,
+  InputNumber,
+  Statistic
 } from "antd";
 
 const { Header, Footer, Sider, Content } = Layout;
 
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      annualBudget: 2000000,
+      numberAPIs: 10,
+      endpointsPerAPI: 150,
+      uniqueSecValid: 2000,
+
+      avgBountyPayout: 1000,
+
+      legalBreachFine: 2000000,
+      breachProb: 10,
+
+      devTimePerValid: 2,
+      hourlyWage: 50,
+
+      apiSecCost: 0,
+      apiSecPercent: 0,
+
+      bountyCost: 0,
+      bountyPercent: 0,
+
+      breachCost: 0,
+      breachPercent: 0,
+
+      inHouseCost: 0,
+      inHousePercent: 0,
+      numberEngNeeded: 0
+    }
+
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  handleInputChange(event) {
+    console.log(event.target);
+    const target = event.target;
+    const name = target.name;
+
+    this.setState({
+      [name]: event.target.value
+    });
+  }
+  
+  
   render() {
     return (
       <div className="App">
         <Layout>
           <Header>
+            
+          </Header>
+
+
+          <Content>
             <Row>
-            <h1>Annual Costs Calculator</h1>
               <Col>
-                <h1>Enter Your Costs</h1>
-                <h3>Number of APIs You Have</h3>
-                <h3>Endpoints Per API</h3>
-                <h3>Unique Security Validations Per API</h3>
-                
-              </Col>
-              <Col>
-                <h1>Comparison of Programs</h1>
-                <h2>APISec™</h2>
-                <h3>Select an FX Lab Product Plan:</h3>
-                <h2>Bounty Program</h2>
-                <h3>Average Payout Per Bug Found</h3>
-                <h2>Breach Cost</h2>
-                <h3>Cost of Fines</h3>
-                <h3>Breach Probability (annually per API)</h3>
-                <h2>In-house Cost</h2>
-                <h3>Development Time Per Validation</h3>
-                <h3>Security Engineers on Team</h3>
-                <h3>Hourly Wage Per Engineer</h3>
-              </Col>
-              <Col>
-                test
+                <h1>Annual Costs Calculator</h1>
               </Col>
             </Row>
-          </Header>
-          <Content>
 
+            <Row>
+              <Col span={24}>
+                <h1>Enter Your Costs</h1>
+              </Col>
+              <Col span={6}>
+                <h3>Your Annual Budget</h3>
+                <InputNumber
+                  name="annualBudget"
+                  precision={2}
+                  formatter={value => `$${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                  parser={value => value.replace(/\$\s?|(,*)/g, '')}
+                  value={this.state.annualBudget}
+                  onChange={this.handleInputChange}
+                >
+                </InputNumber>
+              </Col>
+              <Col span={6}>
+                <h3>Number of APIs You Have</h3>
+                <InputNumber
+                  name="numberAPIs"
+                  formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                  parser={value => value.replace(/\?|(,*)/g, '')}
+                  value={this.state.numberAPIs}
+                  onChange={this.handleInputChange}
+                >
+                </InputNumber>
+              </Col>
+              <Col span={6}>
+                <h3>Endpoints Per API</h3>
+                <InputNumber
+                  name="endpointsPerAPI"
+                  formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                  parser={value => value.replace(/\?|(,*)/g, '')}
+                  value={this.state.endpointsPerAPI}
+                  onChange={this.handleInputChange}
+                >
+                </InputNumber>
+              </Col>
+              <Col span={6}>            
+                <h3>Unique Security Validations Per API</h3>
+                <InputNumber
+                  name="uniqueSecValid"
+                  formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                  parser={value => value.replace(/\?|(,*)/g, '')}
+                  value={this.state.uniqueSecValid}
+                  onChange={this.handleInputChange}
+                >
+                </InputNumber>
+              </Col>
+            </Row>
+
+            <Row>
+              <Col>
+                <h1>Comparison of Programs</h1>
+              </Col>
+            </Row>
+
+            <Row>
+              <Col span={6}>
+                <h2>APISec™</h2>
+                <h3>Select an FX Lab Product Plan:</h3>
+                <InputNumber>
+                </InputNumber>
+              </Col>
+              <Col span={6}>
+                <h2>Bounty Program</h2>
+                <h3>Average Payout Per Bug Found</h3>
+                <InputNumber
+                  name="avgBountyPayout"
+                  precision={2}
+                  formatter={value => `$${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                  parser={value => value.replace(/\$?|(,*)/g, '')}
+                  value={this.state.avgBountyPayout}
+                  onChange={this.handleInputChange}
+                >
+                </InputNumber>
+              </Col>
+              <Col span={6}>
+                <h2>Breach Cost</h2>
+                <h3>Legal Cost Per Breach</h3>
+                <InputNumber
+                  name="legalBreachFine"
+                  precision={2}
+                  formatter={value => `$${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                  parser={value => value.replace(/\$?|(,*)/g, '')}
+                  value={this.state.legalBreachFine}
+                  onChange={this.handleInputChange}
+                >
+                </InputNumber>
+                <h3>Breach Probability (Annually Per API)</h3>
+                <InputNumber
+                  name="breachProb"
+                  precision={1}
+                  formatter={value => `${value}%`}
+                  parser={value => value.replace('%', '')}
+                  value={this.state.breachProb}
+                  onChange={this.handleInputChange}
+                >
+                </InputNumber>
+              </Col>
+              <Col span={6}>
+                <h2>In-House Testing</h2>
+                <h3>Development Time Per Validation</h3>
+                <InputNumber
+                  name="devTimePerValid"
+                  formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                  parser={value => value.replace(/\?|(,*)/g, '')}
+                  value={this.state.devTimePerValid}
+                  onChange={this.handleInputChange}
+                >
+                </InputNumber>
+                <h3>Hourly Wage Per Engineer</h3>
+                <InputNumber
+                  name="hourlyWage"
+                  precision={2}
+                  formatter={value => `$${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                  parser={value => value.replace(/\$?|(,*)/g, '')}
+                  value={this.state.hourlyWage}
+                  onChange={this.handleInputChange}
+                >
+                </InputNumber>
+              </Col>
+              <Col span={24}>
+                <Button type="primary">Button</Button>
+              </Col>
+            </Row>
+
+            <Row>
+              <Col>
+                <h1>Results</h1>
+              </Col>
+            </Row>
+
+            <Row>
+              <Col>
+                <h2>APISec™</h2>
+                <Statistic
+                  title="Total Annual Cost"
+                  prefix="$"
+                >
+                  
+                </Statistic>
+                <Statistic
+                  title="Percent of Your Annual Budget"
+                  suffix="%"
+                >
+                </Statistic>
+              </Col>
+            </Row>
+
+            <Row>
+              <Col span={8}>
+                <h2>Bounty Program</h2>
+                <Statistic
+                  title="Total Annual Cost"
+                  prefix="$"
+                >
+                </Statistic>
+                <Statistic
+                  title="Percent of Your Annual Budget"
+                  suffix="%"
+                >
+                </Statistic>
+              </Col>
+              <Col span={8}>
+                <h2>Breach Cost</h2>
+                <Statistic
+                  title="Total Annual Cost"
+                  prefix="$"
+                >
+                </Statistic>
+                <Statistic
+                  title="Percent of Your Annual Budget"
+                  suffix="%"
+                >
+                </Statistic>
+              </Col>
+              <Col span={8}>
+                <h2>In-house Cost</h2>
+                <Statistic
+                  title="Total Annual Cost"
+                  prefix="$"
+                >     
+                </Statistic>
+                <Statistic
+                  title="Percent of Your Annual Budget"
+                  suffix="%"
+                >
+                </Statistic>
+                <Statistic
+                  title="Number of Engineers Needed (40hr Work Weeks)"
+                >
+                </Statistic>
+              </Col>
+            </Row>
           </Content>
+
+
           <Footer>
 
           </Footer>
         </Layout>
-      
-        <Button type="primary">Button</Button>
       </div>
     );
   }

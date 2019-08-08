@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import update from 'immutability-helper';
+
 import './App.css';
 import {
   Button,
@@ -13,73 +15,195 @@ import {
 const { Header, Footer, Sider, Content } = Layout;
 const { Column } = Table;
 
-const output = [
-  {
-    key: '1',
-    program: 'APISec™',
-    annualCost: '',
-    annualBudget: '',
-    vulnCount: '',
-    ROI: ''
-  },
-  {
-    key: '2',
-    program: 'Bounty Program',
-    annualCost: '',
-    annualBudget: '',
-    vulnCount: '',
-    ROI: ''
-  },
-  {
-    key: '3',
-    program: 'Breach Mitigation',
-    annualCost: '',
-    annualBudget: '',
-    vulnCount: '',
-    ROI: ''
-  },
-  {
-    key: '4',
-    program: 'In-House Testing',
-    annualCost: '',
-    annualBudget: '',
-    vulnCount: '',
-    ROI: ''
-  },
-];
-
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      annualBudget: 2000000,
-      numberAPIs: 10,
-      endpointsPerAPI: 150,
-      uniqueSecValid: 2000,
+      AB: 2000000,
+      NA: 10,
+      EA: 150,
+      SV: 2000,
+      
+      AP: 1000,
+      LC: 2000000,
+      BP: 10,
+      DT: 2,
+      HW: 50,
 
-      avgBountyPayout: 1000,
-
-      legalBreachFine: 2000000,
-      breachProb: 10,
-
-      devTimePerValid: 2,
-      hourlyWage: 50,
-
-      outputData: output
+      outputData: [
+        {
+          key: '1',
+          program: 'APISec™',
+          annualCost: 120,
+          annualBudget: 0,
+          vulnCount: 0,
+          ROI: 0
+        },
+        {
+          key: '2',
+          program: 'Bounty Program',
+          annualCost: 0,
+          annualBudget: 0,
+          vulnCount: 0,
+          ROI: 0
+        },
+        {
+          key: '3',
+          program: 'Breach Mitigation',
+          annualCost: 0,
+          annualBudget: 0,
+          vulnCount: 0,
+          ROI: 0
+        },
+        {
+          key: '4',
+          program: 'In-House Testing',
+          annualCost: 0,
+          annualBudget: 0,
+          vulnCount: 0,
+          ROI: 0
+        },
+      ]
     }
 
+    this.changeAB = this.changeAB.bind(this);
+    this.changeNA = this.changeNA.bind(this);
+    this.changeEA = this.changeEA.bind(this);
+    this.changeSV = this.changeSV.bind(this);
+    this.changeAP = this.changeAP.bind(this);
+    this.changeLC = this.changeLC.bind(this);
+    this.changeBP = this.changeBP.bind(this);
+    this.changeDT = this.changeDT.bind(this);
+    this.changeHW = this.changeHW.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  handleInputChange(event) {
-    console.log(event.target);
-    const target = event.target;
-    const name = target.name;
+  componentDidMount() {
+    this.handleInputChange();
+  }
 
+  changeAB(value) {
     this.setState({
-      [name]: event.target.value
+      AB: value
     });
+
+    this.handleInputChange();
+  }
+
+  changeNA(value) {
+    this.setState({
+      NA: value
+    });
+
+    this.handleInputChange();
+  }
+
+  changeEA(value) {
+    this.setState({
+      EA: value
+    });
+
+    this.handleInputChange();
+  }
+
+  changeSV(value) {
+    this.setState({
+      SV: value
+    });
+
+    this.handleInputChange();
+  }
+
+  changeAP(value) {
+    this.setState({
+      AP: value
+    });
+
+    this.handleInputChange();
+  }
+
+  changeLC(value) {
+    this.setState({
+      LC: value
+    });
+
+    this.handleInputChange();
+  }
+
+  changeBP(value) {
+    this.setState({
+      BP: value
+    });
+
+    this.handleInputChange();
+  }
+
+  changeDT(value) {
+    this.setState({
+      DT: value
+    });
+
+    this.handleInputChange();
+  }
+
+  changeHW(value) {
+    this.setState({
+      HW: value
+    });
+
+    this.handleInputChange();
+  }
+
+  handleInputChange() {
+      var TSV = this.state.NA * this.state.SV;
+      var SEN = this.state.NA * this.state.SV * this.state.DT / 2000;
+
+      var TAC_apiSec = 2500 * 12 + ((this.state.NA - 5) * 6000);
+      var TAC_bounty = TSV * 0.01 * this.state.AP;
+      var TAC_breach = this.state.NA * this.state.BP * this.state.LC;
+      var TAC_inHouse = SEN * this.state.HW * 12 * 168;
+
+      var PAB_apiSec = TAC_apiSec / this.state.AB;
+      var PAB_bounty = TAC_bounty / this.state.AB;
+      var PAB_breach = TAC_breach / this.state.AB;
+      var PAB_inHouse = TAC_inHouse / this.state.AB;
+
+      var VD_apiSec = 80 * this.state.NA;
+      var VD_bounty = TSV * 0.01;
+      var VD_breach = this.state.NA * this.state.BP;
+
+      var ROI_apiSec = TAC_apiSec / VD_apiSec;
+      var ROI_bounty = TAC_bounty / VD_bounty;
+      var ROI_breach = TAC_breach / VD_breach;
+
+      // const 
+      // var newData = update()
+
+      console.log(this.state.outputData[0].annualCost);
+
+    this.setState((state, props) => ({
+      // this.state.outputData = 
+      this.state.outputData[0].annualCost: TAC_apiSec,
+      [this.state.outputData[1].annualCost]: TAC_bounty,
+      [this.state.outputData[2].annualCost]: TAC_breach,
+      [this.state.outputData[3].annualCost]: TAC_inHouse,
+
+      [this.state.outputData[0].annualBudget]: PAB_apiSec,
+      [this.state.outputData[1].annualBudget]: PAB_bounty,
+      [this.state.outputData[2].annualBudget]: PAB_breach,
+      [this.state.outputData[3].annualBudget]: PAB_inHouse,
+
+      [this.state.outputData[0].vulnCount]: VD_apiSec,
+      [this.state.outputData[1].vulnCount]: VD_bounty,
+      [this.state.outputData[2].vulnCount]: VD_breach,
+
+      [this.state.outputData[0].ROI]: ROI_apiSec,
+      [this.state.outputData[1].ROI]: ROI_bounty,
+      [this.state.outputData[2].ROI]: ROI_breach
+    }));
+
+    console.log(this.state);
   }
   
   
@@ -110,8 +234,8 @@ class App extends Component {
                   precision={2}
                   formatter={value => `$${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                   parser={value => value.replace(/\$\s?|(,*)/g, '')}
-                  value={this.state.annualBudget}
-                  onChange={this.handleInputChange}
+                  value={this.state.AB}
+                  onChange={this.changeAB}
                 >
                 </InputNumber>
               </Col>
@@ -121,8 +245,8 @@ class App extends Component {
                   name="numberAPIs"
                   formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                   parser={value => value.replace(/\?|(,*)/g, '')}
-                  value={this.state.numberAPIs}
-                  onChange={this.handleInputChange}
+                  value={this.state.NA}
+                  onChange={this.changeNA}
                 >
                 </InputNumber>
               </Col>
@@ -132,8 +256,8 @@ class App extends Component {
                   name="endpointsPerAPI"
                   formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                   parser={value => value.replace(/\?|(,*)/g, '')}
-                  value={this.state.endpointsPerAPI}
-                  onChange={this.handleInputChange}
+                  value={this.state.EA}
+                  onChange={this.changeEA}
                 >
                 </InputNumber>
               </Col>
@@ -143,8 +267,8 @@ class App extends Component {
                   name="uniqueSecValid"
                   formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                   parser={value => value.replace(/\?|(,*)/g, '')}
-                  value={this.state.uniqueSecValid}
-                  onChange={this.handleInputChange}
+                  value={this.state.SV}
+                  onChange={this.changeSV}
                 >
                 </InputNumber>
               </Col>
@@ -171,8 +295,8 @@ class App extends Component {
                   precision={2}
                   formatter={value => `$${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                   parser={value => value.replace(/\$?|(,*)/g, '')}
-                  value={this.state.avgBountyPayout}
-                  onChange={this.handleInputChange}
+                  value={this.state.AP}
+                  onChange={this.changeAP}
                 >
                 </InputNumber>
               </Col>
@@ -184,8 +308,8 @@ class App extends Component {
                   precision={2}
                   formatter={value => `$${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                   parser={value => value.replace(/\$?|(,*)/g, '')}
-                  value={this.state.legalBreachFine}
-                  onChange={this.handleInputChange}
+                  value={this.state.LC}
+                  onChange={this.changeLC}
                 >
                 </InputNumber>
                 <h3>Breach Probability (Annually Per API)</h3>
@@ -194,8 +318,8 @@ class App extends Component {
                   precision={1}
                   formatter={value => `${value}%`}
                   parser={value => value.replace('%', '')}
-                  value={this.state.breachProb}
-                  onChange={this.handleInputChange}
+                  value={this.state.BP}
+                  onChange={this.changeBP}
                 >
                 </InputNumber>
               </Col>
@@ -206,8 +330,8 @@ class App extends Component {
                   name="devTimePerValid"
                   formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                   parser={value => value.replace(/\?|(,*)/g, '')}
-                  value={this.state.devTimePerValid}
-                  onChange={this.handleInputChange}
+                  value={this.state.DT}
+                  onChange={this.changeDT}
                 >
                 </InputNumber>
                 <h3>Hourly Wage Per Engineer</h3>
@@ -216,8 +340,8 @@ class App extends Component {
                   precision={2}
                   formatter={value => `$${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                   parser={value => value.replace(/\$?|(,*)/g, '')}
-                  value={this.state.hourlyWage}
-                  onChange={this.handleInputChange}
+                  value={this.state.HW}
+                  onChange={this.changeHW}
                 >
                 </InputNumber>
               </Col>

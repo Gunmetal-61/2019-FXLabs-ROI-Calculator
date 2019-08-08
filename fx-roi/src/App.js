@@ -6,10 +6,47 @@ import {
   Row,
   Col,
   InputNumber,
-  Statistic
+  Statistic,
+  Table,
 } from "antd";
 
 const { Header, Footer, Sider, Content } = Layout;
+const { Column } = Table;
+
+const output = [
+  {
+    key: '1',
+    program: 'APISec™',
+    annualCost: '',
+    annualBudget: '',
+    vulnCount: '',
+    ROI: ''
+  },
+  {
+    key: '2',
+    program: 'Bounty Program',
+    annualCost: '',
+    annualBudget: '',
+    vulnCount: '',
+    ROI: ''
+  },
+  {
+    key: '3',
+    program: 'Breach Mitigation',
+    annualCost: '',
+    annualBudget: '',
+    vulnCount: '',
+    ROI: ''
+  },
+  {
+    key: '4',
+    program: 'In-House Testing',
+    annualCost: '',
+    annualBudget: '',
+    vulnCount: '',
+    ROI: ''
+  },
+];
 
 
 class App extends Component {
@@ -29,18 +66,7 @@ class App extends Component {
       devTimePerValid: 2,
       hourlyWage: 50,
 
-      apiSecCost: 0,
-      apiSecPercent: 0,
-
-      bountyCost: 0,
-      bountyPercent: 0,
-
-      breachCost: 0,
-      breachPercent: 0,
-
-      inHouseCost: 0,
-      inHousePercent: 0,
-      numberEngNeeded: 0
+      outputData: output
     }
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -204,68 +230,14 @@ class App extends Component {
               <Col>
                 <h1>Results</h1>
               </Col>
-            </Row>
-
-            <Row>
               <Col>
-                <h2>APISec™</h2>
-                <Statistic
-                  title="Total Annual Cost"
-                  prefix="$"
-                >
-                  
-                </Statistic>
-                <Statistic
-                  title="Percent of Your Annual Budget"
-                  suffix="%"
-                >
-                </Statistic>
-              </Col>
-            </Row>
-
-            <Row>
-              <Col span={8}>
-                <h2>Bounty Program</h2>
-                <Statistic
-                  title="Total Annual Cost"
-                  prefix="$"
-                >
-                </Statistic>
-                <Statistic
-                  title="Percent of Your Annual Budget"
-                  suffix="%"
-                >
-                </Statistic>
-              </Col>
-              <Col span={8}>
-                <h2>Breach Cost</h2>
-                <Statistic
-                  title="Total Annual Cost"
-                  prefix="$"
-                >
-                </Statistic>
-                <Statistic
-                  title="Percent of Your Annual Budget"
-                  suffix="%"
-                >
-                </Statistic>
-              </Col>
-              <Col span={8}>
-                <h2>In-house Cost</h2>
-                <Statistic
-                  title="Total Annual Cost"
-                  prefix="$"
-                >     
-                </Statistic>
-                <Statistic
-                  title="Percent of Your Annual Budget"
-                  suffix="%"
-                >
-                </Statistic>
-                <Statistic
-                  title="Number of Engineers Needed (40hr Work Weeks)"
-                >
-                </Statistic>
+                <Table dataSource={this.state.outputData}>
+                  <Column title="Programs" dataIndex="program" key="program" />
+                  <Column title="Total Annual Cost" dataIndex="annualCost" key="annualCost" />
+                  <Column title="% of Annual Budget" dataIndex="annualBudget" key="annualBudget" />
+                  <Column title="Vulnerabilities Detected" dataIndex="vulnCount" key="vulnCount" />
+                  <Column title="ROI (Cost Per Vulnerability)" dataIndex="ROI" key="ROI" />
+                </Table>
               </Col>
             </Row>
           </Content>

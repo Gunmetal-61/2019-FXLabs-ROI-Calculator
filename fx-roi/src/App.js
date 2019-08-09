@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import update from 'immutability-helper';
+import update from 'react-addons-update';
 
 import './App.css';
 import {
@@ -8,8 +8,7 @@ import {
   Row,
   Col,
   InputNumber,
-  Statistic,
-  Table,
+  Table
 } from "antd";
 
 const { Header, Footer, Sider, Content } = Layout;
@@ -35,7 +34,7 @@ class App extends Component {
         {
           key: '1',
           program: 'APISec™',
-          annualCost: 120,
+          annualCost: 0,
           annualBudget: 0,
           vulnCount: 0,
           ROI: 0
@@ -158,7 +157,7 @@ class App extends Component {
   handleInputChange() {
       var TSV = this.state.NA * this.state.SV;
       var SEN = this.state.NA * this.state.SV * this.state.DT / 2000;
-
+      
       var TAC_apiSec = 2500 * 12 + ((this.state.NA - 5) * 6000);
       var TAC_bounty = TSV * 0.01 * this.state.AP;
       var TAC_breach = this.state.NA * this.state.BP * this.state.LC;
@@ -171,39 +170,35 @@ class App extends Component {
 
       var VD_apiSec = 80 * this.state.NA;
       var VD_bounty = TSV * 0.01;
-      var VD_breach = this.state.NA * this.state.BP;
+      var VD_breach = this.state.NA * this.state.BP / 100;
 
       var ROI_apiSec = TAC_apiSec / VD_apiSec;
       var ROI_bounty = TAC_bounty / VD_bounty;
       var ROI_breach = TAC_breach / VD_breach;
 
-      // const 
-      // var newData = update()
+      const newData = update(this.state.outputData, {
+        0: {annualCost: {$set: TAC_apiSec},
+            annualBudget: {$set: PAB_apiSec},
+            vulnCount: {$set: VD_apiSec},
+            ROI: {$set: ROI_apiSec}},
 
-      console.log(this.state.outputData[0].annualCost);
+        1: {annualCost: {$set: TAC_bounty},
+            annualBudget: {$set: PAB_bounty},
+            vulnCount: {$set: VD_bounty},
+            ROI: {$set: ROI_bounty}},
+
+        2: {annualCost: {$set: TAC_breach},
+            annualBudget: {$set: PAB_breach},
+            vulnCount: {$set: VD_breach},
+            ROI: {$set: ROI_breach}},
+
+        3: {annualCost: {$set: TAC_inHouse},
+            annualBudget: {$set: PAB_inHouse}}
+      });
 
     this.setState((state, props) => ({
-      // this.state.outputData = 
-      this.state.outputData[0].annualCost: TAC_apiSec,
-      [this.state.outputData[1].annualCost]: TAC_bounty,
-      [this.state.outputData[2].annualCost]: TAC_breach,
-      [this.state.outputData[3].annualCost]: TAC_inHouse,
-
-      [this.state.outputData[0].annualBudget]: PAB_apiSec,
-      [this.state.outputData[1].annualBudget]: PAB_bounty,
-      [this.state.outputData[2].annualBudget]: PAB_breach,
-      [this.state.outputData[3].annualBudget]: PAB_inHouse,
-
-      [this.state.outputData[0].vulnCount]: VD_apiSec,
-      [this.state.outputData[1].vulnCount]: VD_bounty,
-      [this.state.outputData[2].vulnCount]: VD_breach,
-
-      [this.state.outputData[0].ROI]: ROI_apiSec,
-      [this.state.outputData[1].ROI]: ROI_bounty,
-      [this.state.outputData[2].ROI]: ROI_breach
+      outputData: newData
     }));
-
-    console.log(this.state);
   }
   
   
@@ -307,7 +302,7 @@ class App extends Component {
                   name="legalBreachFine"
                   precision={2}
                   formatter={value => `$${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                  parser={value => value.replace(/\$?|(,*)/g, '')}
+                  parser={value => value.replace(/\$\s?|(,*)/g, '')}
                   value={this.state.LC}
                   onChange={this.changeLC}
                 >
@@ -339,14 +334,11 @@ class App extends Component {
                   name="hourlyWage"
                   precision={2}
                   formatter={value => `$${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                  parser={value => value.replace(/\$?|(,*)/g, '')}
+                  parser={value => value.replace(/\$\s?|(,*)/g, '')}
                   value={this.state.HW}
                   onChange={this.changeHW}
                 >
                 </InputNumber>
-              </Col>
-              <Col span={24}>
-                <Button type="primary">Button</Button>
               </Col>
             </Row>
 

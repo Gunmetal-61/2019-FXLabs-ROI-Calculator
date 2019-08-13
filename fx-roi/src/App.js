@@ -8,7 +8,8 @@ import {
   Row,
   Col,
   InputNumber,
-  Table
+  Table,
+  Menu
 } from "antd";
 
 const { Header, Footer, Sider, Content } = Layout;
@@ -193,15 +194,16 @@ class App extends Component {
       var TSV = this.state.NA * this.state.SV;
       var SEN = this.state.NA * this.state.SV * this.state.DT / 2000;
       
-      var TAC_apiSec = 2500 * 12 + ((this.state.NA - 5) * 6000);
+      // var TAC_apiSec = 2500 * 12 + ((this.state.NA - 5) * 6000);
+      var TAC_apiSec = 60000;
       var TAC_bounty = TSV * 0.01 * this.state.AP;
-      var TAC_breach = this.state.NA * this.state.BP * this.state.LC;
+      var TAC_breach = this.state.NA * this.state.BP / 100 * this.state.LC;
       var TAC_inHouse = SEN * this.state.HW * 12 * 168;
 
-      var PAB_apiSec = TAC_apiSec / this.state.AB;
-      var PAB_bounty = TAC_bounty / this.state.AB;
-      var PAB_breach = TAC_breach / this.state.AB;
-      var PAB_inHouse = TAC_inHouse / this.state.AB;
+      var PAB_apiSec = TAC_apiSec / this.state.AB * 100;
+      var PAB_bounty = TAC_bounty / this.state.AB * 100;
+      var PAB_breach = TAC_breach / this.state.AB * 100;
+      var PAB_inHouse = TAC_inHouse / this.state.AB * 100;
 
       var VD_apiSec = 80 * this.state.NA;
       var VD_bounty = TSV * 0.01;
@@ -249,7 +251,43 @@ class App extends Component {
       <div className="App">
         <Layout>
           <Header>
-            
+            <Menu mode="horizontal" defaultSelectedKeys={['roiCalc']}>
+              <Menu.Item key="home">
+                <a href="https://fxlabs.io/" target="_blank" rel="noopener noreferrer">
+                  Home
+                </a>
+              </Menu.Item>
+              <Menu.Item key="roiCalc">
+                <a href="https://fxlabs.io/" target="_blank" rel="noopener noreferrer">
+                  ROI Calculator
+                </a>
+              </Menu.Item>
+              <Menu.Item key="useCases">
+                <a href="https://fxlabs.io/use-cases/" target="_blank" rel="noopener noreferrer">
+                  Use Cases
+                </a>
+              </Menu.Item>
+              <Menu.Item key="company">
+                <a href="https://fxlabs.io/company/" target="_blank" rel="noopener noreferrer">
+                  Company
+                </a>
+              </Menu.Item>
+              <Menu.Item key="contact">
+                <a href="https://fxlabs.io/contact/" target="_blank" rel="noopener noreferrer">
+                  Contact
+                </a>
+              </Menu.Item>
+              <Menu.Item key="login">
+                <a href="https://cloud.fxlabs.io/access.html" target="_blank" rel="noopener noreferrer">
+                  Login
+                </a>
+              </Menu.Item>
+              <Menu.Item key="signup">
+                <a href="https://fxlabs.io/fx-cloud-sign-up/" target="_blank" rel="noopener noreferrer">
+                  Sign Up
+                </a>
+              </Menu.Item>
+            </Menu>
           </Header>
 
 

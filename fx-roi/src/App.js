@@ -79,79 +79,114 @@ class App extends Component {
   }
 
   componentDidMount() {
+    console.log(50);
     this.handleInputChange();
   }
 
   changeAB(value) {
     this.setState({
       AB: value
+    },
+    () => {
+      this.handleInputChange();
     });
-
-    this.handleInputChange();
   }
 
   changeNA(value) {
     this.setState({
       NA: value
+    },
+    () => {
+      this.handleInputChange();
     });
-
-    this.handleInputChange();
   }
 
   changeEA(value) {
     this.setState({
       EA: value
+    },
+    () => {
+      this.handleInputChange();
     });
-
-    this.handleInputChange();
   }
 
   changeSV(value) {
     this.setState({
       SV: value
+    },
+    () => {
+      this.handleInputChange();
     });
-
-    this.handleInputChange();
   }
 
   changeAP(value) {
     this.setState({
       AP: value
+    },
+    () => {
+      this.handleInputChange();
     });
-
-    this.handleInputChange();
   }
 
   changeLC(value) {
     this.setState({
       LC: value
+    },
+    () => {
+      this.handleInputChange();
     });
-
-    this.handleInputChange();
   }
 
   changeBP(value) {
     this.setState({
       BP: value
+    },
+    () => {
+      this.handleInputChange();
     });
-
-    this.handleInputChange();
   }
 
   changeDT(value) {
     this.setState({
       DT: value
+    },
+    () => {
+      this.handleInputChange();
     });
-
-    this.handleInputChange();
   }
 
   changeHW(value) {
     this.setState({
       HW: value
+    },
+    () => {
+      this.handleInputChange();
     });
+  }
 
-    this.handleInputChange();
+  toPercentString(value) {
+    return ((Math.round(value * 100) / 100).toFixed(2)).toString() + "%";
+  }
+
+  toDollarString(value) {
+    return "$" + this.toCommaString(value);
+  }
+
+  toCommaString(value) {
+    let temp = Math.round(value).toString();
+    let result = "";
+    let j = 0;
+    for (let i = temp.length - 1; i >= 0; i--) {
+      result = temp[i] + result;
+      j++;
+
+      if (j == 3 && i != 0) {
+        result = ',' + result;
+        j = 0;
+      }
+    }
+
+    return result;
   }
 
   handleInputChange() {
@@ -177,30 +212,37 @@ class App extends Component {
       var ROI_breach = TAC_breach / VD_breach;
 
       const newData = update(this.state.outputData, {
-        0: {annualCost: {$set: TAC_apiSec},
-            annualBudget: {$set: PAB_apiSec},
-            vulnCount: {$set: VD_apiSec},
-            ROI: {$set: ROI_apiSec}},
+        0: {
+              annualCost: {$set: this.toDollarString(TAC_apiSec)},
+              annualBudget: {$set: this.toPercentString(PAB_apiSec)},
+              vulnCount: {$set: this.toCommaString(VD_apiSec)},
+              ROI: {$set: this.toDollarString(ROI_apiSec)}
+            },
 
-        1: {annualCost: {$set: TAC_bounty},
-            annualBudget: {$set: PAB_bounty},
-            vulnCount: {$set: VD_bounty},
-            ROI: {$set: ROI_bounty}},
+        1: {
+              annualCost: {$set: this.toDollarString(TAC_bounty)},
+              annualBudget: {$set: this.toPercentString(PAB_bounty)},
+              vulnCount: {$set: this.toCommaString(VD_bounty)},
+              ROI: {$set: this.toDollarString(ROI_bounty)}
+            },
 
-        2: {annualCost: {$set: TAC_breach},
-            annualBudget: {$set: PAB_breach},
-            vulnCount: {$set: VD_breach},
-            ROI: {$set: ROI_breach}},
+        2: {
+              annualCost: {$set: this.toDollarString(TAC_breach)},
+              annualBudget: {$set: this.toPercentString(PAB_breach)},
+              vulnCount: {$set: this.toCommaString(VD_breach)},
+              ROI: {$set: this.toDollarString(ROI_breach)}
+            },
 
-        3: {annualCost: {$set: TAC_inHouse},
-            annualBudget: {$set: PAB_inHouse}}
+        3: {
+              annualCost: {$set: this.toDollarString(TAC_inHouse)},
+              annualBudget: {$set: this.toPercentString(PAB_inHouse)}
+            }
       });
 
     this.setState((state, props) => ({
       outputData: newData
     }));
   }
-  
   
   render() {
     return (
@@ -347,7 +389,7 @@ class App extends Component {
                 <h1>Results</h1>
               </Col>
               <Col>
-                <Table dataSource={this.state.outputData}>
+                <Table dataSource={this.state.outputData} pagination={false}>
                   <Column title="Programs" dataIndex="program" key="program" />
                   <Column title="Total Annual Cost" dataIndex="annualCost" key="annualCost" />
                   <Column title="% of Annual Budget" dataIndex="annualBudget" key="annualBudget" />

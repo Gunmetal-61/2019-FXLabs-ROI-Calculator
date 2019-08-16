@@ -36,7 +36,6 @@ class App extends Component {
           key: '1',
           program: 'APISec™',
           annualCost: 0,
-          annualBudget: 0,
           vulnCount: 0,
           ROI: 0
         },
@@ -44,15 +43,13 @@ class App extends Component {
           key: '2',
           program: 'Bounty Program',
           annualCost: 0,
-          annualBudget: 0,
           vulnCount: 0,
           ROI: 0
         },
         {
           key: '3',
-          program: 'Breach Mitigation',
+          program: 'Breach Cost',
           annualCost: 0,
-          annualBudget: 0,
           vulnCount: 0,
           ROI: 0
         },
@@ -60,21 +57,14 @@ class App extends Component {
           key: '4',
           program: 'In-House Testing',
           annualCost: 0,
-          annualBudget: 0,
-          vulnCount: 0,
-          ROI: 0
+          vulnCount: "-",
+          ROI: "-"
         },
       ]
     }
 
-    this.changeAB = this.changeAB.bind(this);
     this.changeNA = this.changeNA.bind(this);
-    this.changeEA = this.changeEA.bind(this);
     this.changeSV = this.changeSV.bind(this);
-    this.changeAP = this.changeAP.bind(this);
-    this.changeLC = this.changeLC.bind(this);
-    this.changeBP = this.changeBP.bind(this);
-    this.changeDT = this.changeDT.bind(this);
     this.changeHW = this.changeHW.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
   }
@@ -82,15 +72,6 @@ class App extends Component {
   componentDidMount() {
     console.log(50);
     this.handleInputChange();
-  }
-
-  changeAB(value) {
-    this.setState({
-      AB: value
-    },
-    () => {
-      this.handleInputChange();
-    });
   }
 
   changeNA(value) {
@@ -102,54 +83,9 @@ class App extends Component {
     });
   }
 
-  changeEA(value) {
-    this.setState({
-      EA: value
-    },
-    () => {
-      this.handleInputChange();
-    });
-  }
-
   changeSV(value) {
     this.setState({
       SV: value
-    },
-    () => {
-      this.handleInputChange();
-    });
-  }
-
-  changeAP(value) {
-    this.setState({
-      AP: value
-    },
-    () => {
-      this.handleInputChange();
-    });
-  }
-
-  changeLC(value) {
-    this.setState({
-      LC: value
-    },
-    () => {
-      this.handleInputChange();
-    });
-  }
-
-  changeBP(value) {
-    this.setState({
-      BP: value
-    },
-    () => {
-      this.handleInputChange();
-    });
-  }
-
-  changeDT(value) {
-    this.setState({
-      DT: value
     },
     () => {
       this.handleInputChange();
@@ -200,11 +136,6 @@ class App extends Component {
       var TAC_breach = this.state.NA * this.state.BP / 100 * this.state.LC;
       var TAC_inHouse = SEN * this.state.HW * 12 * 168;
 
-      var PAB_apiSec = TAC_apiSec / this.state.AB * 100;
-      var PAB_bounty = TAC_bounty / this.state.AB * 100;
-      var PAB_breach = TAC_breach / this.state.AB * 100;
-      var PAB_inHouse = TAC_inHouse / this.state.AB * 100;
-
       var VD_apiSec = 80 * this.state.NA;
       var VD_bounty = TSV * 0.01;
       var VD_breach = this.state.NA * this.state.BP / 100;
@@ -216,28 +147,24 @@ class App extends Component {
       const newData = update(this.state.outputData, {
         0: {
               annualCost: {$set: this.toDollarString(TAC_apiSec)},
-              annualBudget: {$set: this.toPercentString(PAB_apiSec)},
               vulnCount: {$set: this.toCommaString(VD_apiSec)},
               ROI: {$set: this.toDollarString(ROI_apiSec)}
             },
 
         1: {
               annualCost: {$set: this.toDollarString(TAC_bounty)},
-              annualBudget: {$set: this.toPercentString(PAB_bounty)},
               vulnCount: {$set: this.toCommaString(VD_bounty)},
               ROI: {$set: this.toDollarString(ROI_bounty)}
             },
 
         2: {
               annualCost: {$set: this.toDollarString(TAC_breach)},
-              annualBudget: {$set: this.toPercentString(PAB_breach)},
               vulnCount: {$set: this.toCommaString(VD_breach)},
               ROI: {$set: this.toDollarString(ROI_breach)}
             },
 
         3: {
               annualCost: {$set: this.toDollarString(TAC_inHouse)},
-              annualBudget: {$set: this.toPercentString(PAB_inHouse)}
             }
       });
 
@@ -250,44 +177,53 @@ class App extends Component {
     return (
       <div className="App">
         <Layout>
-          <Header>
-            <Menu mode="horizontal" defaultSelectedKeys={['roiCalc']}>
-              <Menu.Item key="home">
-                <a href="https://fxlabs.io/" target="_blank" rel="noopener noreferrer">
-                  Home
-                </a>
-              </Menu.Item>
-              <Menu.Item key="roiCalc">
-                <a href="https://fxlabs.io/" target="_blank" rel="noopener noreferrer">
-                  ROI Calculator
-                </a>
-              </Menu.Item>
-              <Menu.Item key="useCases">
-                <a href="https://fxlabs.io/use-cases/" target="_blank" rel="noopener noreferrer">
-                  Use Cases
-                </a>
-              </Menu.Item>
-              <Menu.Item key="company">
-                <a href="https://fxlabs.io/company/" target="_blank" rel="noopener noreferrer">
-                  Company
-                </a>
-              </Menu.Item>
-              <Menu.Item key="contact">
-                <a href="https://fxlabs.io/contact/" target="_blank" rel="noopener noreferrer">
-                  Contact
-                </a>
-              </Menu.Item>
-              <Menu.Item key="login">
-                <a href="https://cloud.fxlabs.io/access.html" target="_blank" rel="noopener noreferrer">
-                  Login
-                </a>
-              </Menu.Item>
-              <Menu.Item key="signup">
-                <a href="https://fxlabs.io/fx-cloud-sign-up/" target="_blank" rel="noopener noreferrer">
-                  Sign Up
-                </a>
-              </Menu.Item>
-            </Menu>
+          <Header className="App-header">
+            <Row>
+              <Col id="header-top">
+                <p>Call Us Today (650) 918-0747 | founders@fxlabs.io</p>
+              </Col>
+              <Col id="header-bottom">
+                <Menu mode="horizontal" defaultSelectedKeys={['roiCalc']}>
+                  <Menu.Item key="home">
+                    <a href="https://fxlabs.io/" target="_blank" rel="noopener noreferrer">
+                      Home
+                    </a>
+                  </Menu.Item>
+                  <Menu.Item key="roiCalc">
+                    <a href="https://fxlabs.io/" target="_blank" rel="noopener noreferrer">
+                      ROI Calculator
+                    </a>
+                  </Menu.Item>
+                  <Menu.Item key="useCases">
+                    <a href="https://fxlabs.io/use-cases/" target="_blank" rel="noopener noreferrer">
+                      Use Cases
+                    </a>
+                  </Menu.Item>
+                  <Menu.Item key="company">
+                    <a href="https://fxlabs.io/company/" target="_blank" rel="noopener noreferrer">
+                      Company
+                    </a>
+                  </Menu.Item>
+                  <Menu.Item key="contact">
+                    <a href="https://fxlabs.io/contact/" target="_blank" rel="noopener noreferrer">
+                      Contact
+                    </a>
+                  </Menu.Item>
+                  <Menu.Item key="login">
+                    <a href="https://cloud.fxlabs.io/access.html" target="_blank" rel="noopener noreferrer">
+                      Login
+                    </a>
+                  </Menu.Item>
+                  <Menu.Item key="signup">
+                    <a href="https://fxlabs.io/fx-cloud-sign-up/" target="_blank" rel="noopener noreferrer">
+                      Sign Up
+                    </a>
+                  </Menu.Item>
+                </Menu>
+              </Col>
+            </Row>
+            
+            
           </Header>
 
 
@@ -302,19 +238,7 @@ class App extends Component {
               <Col span={24}>
                 <h1>Enter Your Costs</h1>
               </Col>
-              <Col span={6}>
-                <h3>Your Annual Budget</h3>
-                <InputNumber
-                  name="annualBudget"
-                  precision={2}
-                  formatter={value => `$${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                  parser={value => value.replace(/\$\s?|(,*)/g, '')}
-                  value={this.state.AB}
-                  onChange={this.changeAB}
-                >
-                </InputNumber>
-              </Col>
-              <Col span={6}>
+              <Col span={8}>
                 <h3>Number of APIs You Have</h3>
                 <InputNumber
                   name="numberAPIs"
@@ -325,18 +249,7 @@ class App extends Component {
                 >
                 </InputNumber>
               </Col>
-              <Col span={6}>
-                <h3>Endpoints Per API</h3>
-                <InputNumber
-                  name="endpointsPerAPI"
-                  formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                  parser={value => value.replace(/\?|(,*)/g, '')}
-                  value={this.state.EA}
-                  onChange={this.changeEA}
-                >
-                </InputNumber>
-              </Col>
-              <Col span={6}>            
+              <Col span={8}>            
                 <h3>Unique Security Validations Per API</h3>
                 <InputNumber
                   name="uniqueSecValid"
@@ -347,68 +260,7 @@ class App extends Component {
                 >
                 </InputNumber>
               </Col>
-            </Row>
-
-            <Row>
-              <Col>
-                <h1>Comparison of Programs</h1>
-              </Col>
-            </Row>
-
-            <Row>
-              <Col span={6}>
-                <h2>APISec™</h2>
-                <h3>Select an FX Lab Product Plan:</h3>
-                <InputNumber>
-                </InputNumber>
-              </Col>
-              <Col span={6}>
-                <h2>Bounty Program</h2>
-                <h3>Average Payout Per Bug Found</h3>
-                <InputNumber
-                  name="avgBountyPayout"
-                  precision={2}
-                  formatter={value => `$${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                  parser={value => value.replace(/\$?|(,*)/g, '')}
-                  value={this.state.AP}
-                  onChange={this.changeAP}
-                >
-                </InputNumber>
-              </Col>
-              <Col span={6}>
-                <h2>Breach Cost</h2>
-                <h3>Legal Cost Per Breach</h3>
-                <InputNumber
-                  name="legalBreachFine"
-                  precision={2}
-                  formatter={value => `$${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                  parser={value => value.replace(/\$\s?|(,*)/g, '')}
-                  value={this.state.LC}
-                  onChange={this.changeLC}
-                >
-                </InputNumber>
-                <h3>Breach Probability (Annually Per API)</h3>
-                <InputNumber
-                  name="breachProb"
-                  precision={1}
-                  formatter={value => `${value}%`}
-                  parser={value => value.replace('%', '')}
-                  value={this.state.BP}
-                  onChange={this.changeBP}
-                >
-                </InputNumber>
-              </Col>
-              <Col span={6}>
-                <h2>In-House Testing</h2>
-                <h3>Development Time Per Validation</h3>
-                <InputNumber
-                  name="devTimePerValid"
-                  formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                  parser={value => value.replace(/\?|(,*)/g, '')}
-                  value={this.state.DT}
-                  onChange={this.changeDT}
-                >
-                </InputNumber>
+              <Col span={8}>
                 <h3>Hourly Wage Per Engineer</h3>
                 <InputNumber
                   name="hourlyWage"
@@ -430,7 +282,6 @@ class App extends Component {
                 <Table dataSource={this.state.outputData} pagination={false}>
                   <Column title="Programs" dataIndex="program" key="program" />
                   <Column title="Total Annual Cost" dataIndex="annualCost" key="annualCost" />
-                  <Column title="% of Annual Budget" dataIndex="annualBudget" key="annualBudget" />
                   <Column title="Vulnerabilities Detected" dataIndex="vulnCount" key="vulnCount" />
                   <Column title="ROI (Cost Per Vulnerability)" dataIndex="ROI" key="ROI" />
                 </Table>
@@ -440,7 +291,16 @@ class App extends Component {
 
 
           <Footer>
-
+            <div id="footer-top">
+              <p>845 Market St. – Suite 450</p>
+              <p>San Francisco, CA 94103</p>
+              <p>Phone: (650) 918-­0747</p>
+              <p>Email: founders@fxlabs.io</p>
+              <p>Web: fxlabs.io</p>
+            </div>
+            <div id="footer-bottom">
+              <p>Copyright 2018 - FX Labs, Inc.</p>
+            </div>
           </Footer>
         </Layout>
       </div>

@@ -177,52 +177,47 @@ class App extends Component {
     return (
       <div className="App">
         <Layout>
-          <Header className="App-header">
-            <Row>
-              <Col id="header-top">
-                <p>Call Us Today (650) 918-0747 | founders@fxlabs.io</p>
-              </Col>
-              <Col id="header-bottom">
-                <Menu mode="horizontal" defaultSelectedKeys={['roiCalc']}>
-                  <Menu.Item key="home">
-                    <a href="https://fxlabs.io/" target="_blank" rel="noopener noreferrer">
-                      Home
-                    </a>
-                  </Menu.Item>
-                  <Menu.Item key="roiCalc">
-                    <a href="https://fxlabs.io/" target="_blank" rel="noopener noreferrer">
-                      ROI Calculator
-                    </a>
-                  </Menu.Item>
-                  <Menu.Item key="useCases">
-                    <a href="https://fxlabs.io/use-cases/" target="_blank" rel="noopener noreferrer">
-                      Use Cases
-                    </a>
-                  </Menu.Item>
-                  <Menu.Item key="company">
-                    <a href="https://fxlabs.io/company/" target="_blank" rel="noopener noreferrer">
-                      Company
-                    </a>
-                  </Menu.Item>
-                  <Menu.Item key="contact">
-                    <a href="https://fxlabs.io/contact/" target="_blank" rel="noopener noreferrer">
-                      Contact
-                    </a>
-                  </Menu.Item>
-                  <Menu.Item key="login">
-                    <a href="https://cloud.fxlabs.io/access.html" target="_blank" rel="noopener noreferrer">
-                      Login
-                    </a>
-                  </Menu.Item>
-                  <Menu.Item key="signup">
-                    <a href="https://fxlabs.io/fx-cloud-sign-up/" target="_blank" rel="noopener noreferrer">
-                      Sign Up
-                    </a>
-                  </Menu.Item>
-                </Menu>
-              </Col>
-            </Row>
-            
+          <Header className="header">
+            <p>Call Us Today (650) 918-0747 | founders@fxlabs.io</p>
+            <img src="logo.png" alt="FX Labs" height="58" width="65"></img>
+            <Menu mode="horizontal" defaultSelectedKeys={['roiCalc']}>
+              <Menu.Item key="home">
+                <a href="https://fxlabs.io/" target="_blank" rel="noopener noreferrer">
+                  Home
+                </a>
+              </Menu.Item>
+              <Menu.Item key="roiCalc">
+                <a href="https://fxlabs.io/" target="_blank" rel="noopener noreferrer">
+                  ROI Calculator
+                </a>
+              </Menu.Item>
+              <Menu.Item key="useCases">
+                <a href="https://fxlabs.io/use-cases/" target="_blank" rel="noopener noreferrer">
+                  Use Cases
+                </a>
+              </Menu.Item>
+              <Menu.Item key="company">
+                <a href="https://fxlabs.io/company/" target="_blank" rel="noopener noreferrer">
+                  Company
+                </a>
+              </Menu.Item>
+              <Menu.Item key="contact">
+                <a href="https://fxlabs.io/contact/" target="_blank" rel="noopener noreferrer">
+                  Contact
+                </a>
+              </Menu.Item>
+              <Menu.Item key="login">
+                <a href="https://cloud.fxlabs.io/access.html" target="_blank" rel="noopener noreferrer">
+                  Login
+                </a>
+              </Menu.Item>
+              <Menu.Item key="signup">
+                <a href="https://fxlabs.io/fx-cloud-sign-up/" target="_blank" rel="noopener noreferrer">
+                  Sign Up
+                </a>
+              </Menu.Item>
+            </Menu>
+        
             
           </Header>
 

@@ -176,52 +176,60 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Layout>
-          <Header className="header">
-            <p>Call Us Today (650) 918-0747 | founders@fxlabs.io</p>
-            <img src="logo.png" alt="FX Labs" height="58" width="65"></img>
-            <Menu mode="horizontal" defaultSelectedKeys={['roiCalc']}>
-              <Menu.Item key="home">
-                <a href="https://fxlabs.io/" target="_blank" rel="noopener noreferrer">
-                  Home
-                </a>
-              </Menu.Item>
-              <Menu.Item key="roiCalc">
-                <a href="https://fxlabs.io/" target="_blank" rel="noopener noreferrer">
-                  ROI Calculator
-                </a>
-              </Menu.Item>
-              <Menu.Item key="useCases">
-                <a href="https://fxlabs.io/use-cases/" target="_blank" rel="noopener noreferrer">
-                  Use Cases
-                </a>
-              </Menu.Item>
-              <Menu.Item key="company">
-                <a href="https://fxlabs.io/company/" target="_blank" rel="noopener noreferrer">
-                  Company
-                </a>
-              </Menu.Item>
-              <Menu.Item key="contact">
-                <a href="https://fxlabs.io/contact/" target="_blank" rel="noopener noreferrer">
-                  Contact
-                </a>
-              </Menu.Item>
-              <Menu.Item key="login">
-                <a href="https://cloud.fxlabs.io/access.html" target="_blank" rel="noopener noreferrer">
-                  Login
-                </a>
-              </Menu.Item>
-              <Menu.Item key="signup">
-                <a href="https://fxlabs.io/fx-cloud-sign-up/" target="_blank" rel="noopener noreferrer">
-                  Sign Up
-                </a>
-              </Menu.Item>
-            </Menu>
+        <div id="header-top">
+          <Row>
+            <Col span={8}>
+              <img src="fxlabslogo4-new.png" alt="FX Labs" height="39" width="140"></img>
+            </Col>
+            <Col span={16}>
+              <Menu 
+                mode="horizontal" 
+                defaultSelectedKeys={['roiCalc']}
+                style={{ lineHeight: '64px' }}
+                background-color="#121536"
+              >
+                <Menu.Item key="home">
+                  <a href="https://fxlabs.io/" target="_blank" rel="noopener noreferrer">
+                    Home
+                  </a>
+                </Menu.Item>
+                <Menu.Item key="roiCalc">
+                  <a href="https://fxlabs.io/" target="_blank" rel="noopener noreferrer">
+                    ROI Calculator
+                  </a>
+                </Menu.Item>
+                <Menu.Item key="useCases">
+                  <a href="https://fxlabs.io/use-cases/" target="_blank" rel="noopener noreferrer">
+                    Use Cases
+                  </a>
+                </Menu.Item>
+                <Menu.Item key="company">
+                  <a href="https://fxlabs.io/company/" target="_blank" rel="noopener noreferrer">
+                    Company
+                  </a>
+                </Menu.Item>
+                <Menu.Item key="contact">
+                  <a href="https://fxlabs.io/contact/" target="_blank" rel="noopener noreferrer">
+                    Contact
+                  </a>
+                </Menu.Item>
+                <Menu.Item key="login">
+                  <a href="https://cloud.fxlabs.io/access.html" target="_blank" rel="noopener noreferrer">
+                    Login
+                  </a>
+                </Menu.Item>
+                <Menu.Item key="signup">
+                  <a href="https://fxlabs.io/fx-cloud-sign-up/" target="_blank" rel="noopener noreferrer">
+                    Sign Up
+                  </a>
+                </Menu.Item>
+              </Menu>
+            </Col>
+          </Row>
+        </div>
         
-            
-          </Header>
-
-
+        
+        <Layout className="layout">
           <Content>
             <Row>
               <Col>
@@ -284,19 +292,44 @@ class App extends Component {
             </Row>
           </Content>
 
-
-          <Footer>
+          <div class="footer">
             <div id="footer-top">
-              <p>845 Market St. – Suite 450</p>
-              <p>San Francisco, CA 94103</p>
-              <p>Phone: (650) 918-­0747</p>
-              <p>Email: founders@fxlabs.io</p>
-              <p>Web: fxlabs.io</p>
+              <Row>
+                <Col span={9}>
+                  <img src="fxlabslogo4-new.png" alt="FX Labs" height="39" width="140"></img>
+                  <p>Fxlabs is San Francisco based API Cybersecurity Company Continuous Security and Compliance | RBAC and ABAC Vulnerability Detection</p>
+                </Col>
+                <Col span={5}>
+                  <p>Find Us</p>
+                  <p>845 Market St. – Suite 450</p>
+                  <p>San Francisco, CA 94103</p>
+                </Col>
+                <Col span={5}>
+                  <p>Get in Touch</p>
+                  <p>Phone: (650) 918-­0747</p>
+                  <p>Email: founders@fxlabs.io</p>
+                  <p>Web: fxlabs.io</p>
+                </Col>
+                <Col span={5}>
+                  <p>Quick Links</p>
+                  <p>White Papers</p>
+                  <p>Request a Demo</p>
+                  <p>Services</p>
+                  <p>About Us</p>
+                </Col>
+              </Row>
             </div>
             <div id="footer-bottom">
-              <p>Copyright 2018 - FX Labs, Inc.</p>
+              <Row>
+                <Col>
+                  <p>Copyright © 2019. All rights reserved.</p>
+                </Col>
+                <Col>
+                
+                </Col>
+              </Row>
             </div>
-          </Footer>
+          </div>
         </Layout>
       </div>
     );

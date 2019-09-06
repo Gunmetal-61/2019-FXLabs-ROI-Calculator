@@ -1,7 +1,7 @@
 @import '~antd/dist/antd.css';
 
 .App {
-  text-align: center;
+  text-align: left;
   
 }
 
@@ -17,7 +17,7 @@
 }
 
 #header-top {
-  background-color: #e75549;
+  background-color: #121536;
 }
 
 #header-bottom {
@@ -27,15 +27,15 @@
 
 
 .footer {
-
+  color: #705873;
 }
 
 #footer-top {
-  background-color: #3d424f;
+  background-color: #131133;
 }
 
 #footer-bottom {
-  background-color: #2c2f3e;
+  background-color: #0f0d29;
 }
 
 .App-link {
